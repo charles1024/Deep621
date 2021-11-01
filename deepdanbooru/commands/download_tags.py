@@ -14,7 +14,7 @@ def download_category_tags(category, minimum_post_count, limit, page_size=1000, 
         'character': 4
     }
 
-    gold_only_tags = ['loli', 'shota', 'toddlercon']
+    gold_only_tags = ['loli', 'shota', 'toddlercon', 'fat', 'female']
 
     if category not in category_to_index:
         raise Exception(f'Not supported category : {category}')
@@ -28,12 +28,15 @@ def download_category_tags(category, minimum_post_count, limit, page_size=1000, 
         'search[category]': category_index
     }
 
-    request_url = 'https://danbooru.donmai.us/tags.json'
+    request_url = 'https://e621.net/tags.json'
 
     tags = set()
 
     while True:
-        response = requests.get(request_url, params=parameters)
+        headers = {
+                    'User-Agent': 'MyScann  er 1.0'
+        }
+        response = requests.get(request_url, params=parameters, headers=headers)
         response_json = response.json()
 
         response_tags = [tag_json['name']
