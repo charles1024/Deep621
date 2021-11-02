@@ -127,7 +127,7 @@ def train_project(project_path, source_model):
     print(f'Loading database ... ')
     image_records = dd.data.load_image_records(
         database_path, minimum_tag_count)
-
+    print(f'record count: ' + str(len(image_records)))
     # Checkpoint variables
     used_epoch = tf.Variable(0, dtype=tf.int64)
     used_minibatch = tf.Variable(0, dtype=tf.int64)
