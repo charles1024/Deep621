@@ -35,7 +35,7 @@ def download_category_tags(category, minimum_post_count, limit, page_size=1000, 
 
     while True:
         headers = {
-                    'User-Agent': 'MyScanner 1.0'
+                    'User-Agent': 'PyrrhoScanner v0.1'
         }
         response = requests.get(request_url, params=parameters, headers=headers)
         response_json = response.json()

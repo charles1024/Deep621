@@ -19,7 +19,8 @@ def load_image_records(sqlite_path, minimum_tag_count):
     image_folder_path = os.path.join(os.path.dirname(sqlite_path), 'images')
 
     cursor.execute(
-        "SELECT md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') AND (tag_count_general >= ?) ORDER BY id",
+        "SELECT id, md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') ORDER BY id",
+        #"SELECT md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') AND (tag_count_general >= ?) ORDER BY id",
         (minimum_tag_count,))
 
     rows = cursor.fetchall()
@@ -27,10 +28,11 @@ def load_image_records(sqlite_path, minimum_tag_count):
     image_records = []
 
     for row in rows:
+        ID = row['id']
         md5 = row['md5']
         extension = row['file_ext']
         image_path = os.path.join(
-            image_folder_path, md5[0:2], f'{md5}.{extension}')
+            image_folder_path,'e621_', ID, '_', md5[0:2], f'{md5}.{extension}')
         tag_string = row['tag_string']
 
         image_records.append((image_path, tag_string))
