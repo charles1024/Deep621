@@ -106,6 +106,7 @@ def train_project(project_path, source_model):
         inputs = tf.keras.Input(shape=(height, width, 3),
                                 dtype=tf.float32)  # HWC
         ouputs = model_delegate(inputs, output_dim)
+        print(f'Making model object...')
         model = tf.keras.Model(inputs=inputs, outputs=ouputs, name=model_type)
 
         if use_mixed_precision:
@@ -120,7 +121,7 @@ def train_project(project_path, source_model):
             print('float32 model is created.')
 
         print(f'Model : {model.input_shape} -> {model.output_shape}')
-
+    print(f'Compiling model...')
     model.compile(optimizer=optimizer, loss=tf.keras.losses.BinaryCrossentropy(),
                   metrics=[tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
 
