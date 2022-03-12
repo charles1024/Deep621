@@ -19,9 +19,7 @@ def load_image_records(sqlite_path, minimum_tag_count):
     image_folder_path = os.path.join(os.path.dirname(sqlite_path), '../scaled/')
 
     cursor.execute(
-        "SELECT id, md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') ORDER BY id",
-        #"SELECT md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') AND (tag_count_general >= ?) ORDER BY id",
-        (minimum_tag_count,))
+        "SELECT id, md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') ORDER BY id")
 
     rows = cursor.fetchall()
 
