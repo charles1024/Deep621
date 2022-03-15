@@ -181,13 +181,13 @@ def train_project(project_path, source_model):
         while int(offset) < epoch_size:
             image_records_slice = image_records[int(offset):min(
                 int(offset) + slice_size, epoch_size)]
-            print(f'record slice size: {len(image_records_slice)}')
+#            print(f'record slice size: {len(image_records_slice)}')
 
             image_paths = [image_record[0]
                            for image_record in image_records_slice]
             tag_strings = [image_record[1]
                            for image_record in image_records_slice]
-            print(f'first image: {image_records_slice[0]}')
+#            print(f'first image: {image_records_slice[0]}')
 
             dataset_wrapper = dd.data.DatasetWrapper(
                 (image_paths, tag_strings), tags, width, height, scale_range=scale_range, rotation_range=rotation_range, shift_range=shift_range)
@@ -195,7 +195,7 @@ def train_project(project_path, source_model):
             #print(f'dataset len: {len(dataset)} ')
             for (x_train, y_train) in dataset:
                 sample_count = x_train.shape[0]
-                print(f'sample cout: {sample_count}, y_train: {y_train}')
+#                print(f'sample cout: {sample_count}, y_train: {y_train}')
 
                 step_result = model.train_on_batch(
                     x_train, y_train, reset_metrics=False)
@@ -205,7 +205,7 @@ def train_project(project_path, source_model):
                 used_sample_sum += sample_count
                 loss_sum += step_result[0]
                 loss_count += 1
-                print(f'used minibatch: {used_minibatch} logging freq mb: {console_logging_frequency_mb} mod: {int(used_minibatch) % console_logging_frequency_mb}' )
+#                print(f'used minibatch: {used_minibatch} logging freq mb: {console_logging_frequency_mb} mod: {int(used_minibatch) % console_logging_frequency_mb}' )
                 if int(used_minibatch) % console_logging_frequency_mb == 0:
                     # calculate logging informations
                     current_time = time.time()
