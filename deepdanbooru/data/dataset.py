@@ -29,8 +29,9 @@ def load_image_records(sqlite_path, minimum_tag_count):
         ID = row['id']
         md5 = row['md5']
         extension = row['file_ext']
+        file_name='e621_'+str(ID)+'_'+md5+extension
         image_path = os.path.join(
-            image_folder_path , '/', md5[0:2],'/','e621_', ID, '_', md5[0:2], f'{md5}.{extension}')
+            image_folder_path ,  md5[0:2],file_name)
         tag_string = row['tag_string']
 
         image_records.append((image_path, tag_string))
