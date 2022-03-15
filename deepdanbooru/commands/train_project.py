@@ -190,7 +190,7 @@ def train_project(project_path, source_model):
             dataset_wrapper = dd.data.DatasetWrapper(
                 (image_paths, tag_strings), tags, width, height, scale_range=scale_range, rotation_range=rotation_range, shift_range=shift_range)
             dataset = dataset_wrapper.get_dataset(minibatch_size)
-            print(f'dataset len: {len(dataset)} ')
+            #print(f'dataset len: {len(dataset)} ')
             for (x_train, y_train) in dataset:
                 sample_count = x_train.shape[0]
                 print(f'sample cout: {sample_count}, y_train: {y_train}')
