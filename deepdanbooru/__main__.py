@@ -24,7 +24,7 @@ def create_project(project_path):
 
 @main.command('download-tags')
 @click.option('--limit', default=10000, help='Limit for each category tag count.')
-@click.option('--minimum-post-count', default=500, help='Minimum post count for tag.')
+@click.option('--minimum-post-count', default=10000, help='Minimum post count for tag.')
 @click.option('--overwrite', help='Overwrite tags if exists.', is_flag=True)
 @click.argument('path', type=click.Path(exists=False, resolve_path=True, file_okay=False, dir_okay=True))
 def download_tags(path, limit, minimum_post_count, overwrite):

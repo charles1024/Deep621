@@ -11,7 +11,8 @@ def download_category_tags(category, minimum_post_count, limit, page_size=1000, 
         'general': 0,
         'artist': 1,
         'copyright': 3,
-        'character': 4
+        'character': 4,
+        'species': 5,
     }
 
     gold_only_tags = ['loli', 'shota', 'toddlercon', 'fat', 'female']
@@ -34,7 +35,7 @@ def download_category_tags(category, minimum_post_count, limit, page_size=1000, 
 
     while True:
         headers = {
-                    'User-Agent': 'MyScann  er 1.0'
+                    'User-Agent': 'PyrrhoScanner v0.1'
         }
         response = requests.get(request_url, params=parameters, headers=headers)
         response_json = response.json()
@@ -106,6 +107,11 @@ def download_tags(project_path, limit, minimum_post_count, is_overwrite):
             'category_name': 'Character',
             'category': 'character',
             'path': os.path.join(project_path, 'tags-character.txt'),
+        },
+        {
+            'category_name': 'Species',
+            'category': 'species',
+            'path': os.path.join(project_path, 'tags-species.txt'),
         },
     ]
 

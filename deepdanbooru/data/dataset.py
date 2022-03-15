@@ -16,21 +16,21 @@ def load_image_records(sqlite_path, minimum_tag_count):
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
-    image_folder_path = os.path.join(os.path.dirname(sqlite_path), 'images')
+    image_folder_path = os.path.join(os.path.dirname(sqlite_path), '../scaled/')
 
     cursor.execute(
-        "SELECT md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') AND (tag_count_general >= ?) ORDER BY id",
-        (minimum_tag_count,))
+        "SELECT id, md5, file_ext, tag_string FROM posts WHERE (file_ext = 'png' OR file_ext = 'jpg' OR file_ext = 'jpeg') ORDER BY id")
 
     rows = cursor.fetchall()
 
     image_records = []
 
     for row in rows:
+        ID = row['id']
         md5 = row['md5']
         extension = row['file_ext']
         image_path = os.path.join(
-            image_folder_path, md5[0:2], f'{md5}.{extension}')
+            image_folder_path , '/', md5[0:2],'/','e621_', ID, '_', md5[0:2], f'{md5}.{extension}')
         tag_string = row['tag_string']
 
         image_records.append((image_path, tag_string))

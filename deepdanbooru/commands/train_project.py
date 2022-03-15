@@ -106,6 +106,7 @@ def train_project(project_path, source_model):
         inputs = tf.keras.Input(shape=(height, width, 3),
                                 dtype=tf.float32)  # HWC
         ouputs = model_delegate(inputs, output_dim)
+        print(f'Making model object...')
         model = tf.keras.Model(inputs=inputs, outputs=ouputs, name=model_type)
 
         if use_mixed_precision:
@@ -120,14 +121,14 @@ def train_project(project_path, source_model):
             print('float32 model is created.')
 
         print(f'Model : {model.input_shape} -> {model.output_shape}')
-
+    print(f'Compiling model...')
     model.compile(optimizer=optimizer, loss=tf.keras.losses.BinaryCrossentropy(),
                   metrics=[tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
 
     print(f'Loading database ... ')
     image_records = dd.data.load_image_records(
         database_path, minimum_tag_count)
-
+    print(f'record count: ' + str(len(image_records)))
     # Checkpoint variables
     used_epoch = tf.Variable(0, dtype=tf.int64)
     used_minibatch = tf.Variable(0, dtype=tf.int64)
@@ -201,7 +202,7 @@ def train_project(project_path, source_model):
                 used_sample_sum += sample_count
                 loss_sum += step_result[0]
                 loss_count += 1
-
+                print(f'used minibatch: {used_minibatch} logging freq mb: {console_logging_frequency_mb} mod: {int(used_minibatch) % console_logging_frequency_mb}' )
                 if int(used_minibatch) % console_logging_frequency_mb == 0:
                     # calculate logging informations
                     current_time = time.time()
