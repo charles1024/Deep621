@@ -177,15 +177,17 @@ def train_project(project_path, source_model):
         print(f'Trying to change learning rate to {learning_rate} ...')
         optimizer.learning_rate.assign(learning_rate)
         print(f'Learning rate is changed to {optimizer.learning_rate} ...')
-        print(f'offset: {offset} epoch_size: {epoch_size}')
+        print(f'offset: {offset} epoch_size: {epoch_size} slize_size: {slice_size}')
         while int(offset) < epoch_size:
             image_records_slice = image_records[int(offset):min(
                 int(offset) + slice_size, epoch_size)]
+            print(f'record slice size: {image_records_slice}')
 
             image_paths = [image_record[0]
                            for image_record in image_records_slice]
             tag_strings = [image_record[1]
                            for image_record in image_records_slice]
+            print(f'first image: {image_records_slice[0]}')
 
             dataset_wrapper = dd.data.DatasetWrapper(
                 (image_paths, tag_strings), tags, width, height, scale_range=scale_range, rotation_range=rotation_range, shift_range=shift_range)
