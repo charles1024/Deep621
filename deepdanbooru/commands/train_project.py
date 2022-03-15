@@ -181,7 +181,7 @@ def train_project(project_path, source_model):
         while int(offset) < epoch_size:
             image_records_slice = image_records[int(offset):min(
                 int(offset) + slice_size, epoch_size)]
-            print(f'record slice size: {image_records_slice}')
+            print(f'record slice size: {len(image_records_slice)}')
 
             image_paths = [image_record[0]
                            for image_record in image_records_slice]
