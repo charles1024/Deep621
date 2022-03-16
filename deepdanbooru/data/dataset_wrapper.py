@@ -19,6 +19,9 @@ class DatasetWrapper:
         self.rotation_range = rotation_range
         self.shift_range = shift_range
         self.tag_all_array = np.array(tags)
+        #print(f'new dataset')
+        #print(f'num inputs: {len(self.inputs[0])}')
+        #print(f'num tags: {len(self.tag_all_array)}')
 
     def get_dataset(self, minibatch_size):
         dataset = tf.data.Dataset.from_tensor_slices(self.inputs)
@@ -32,13 +35,15 @@ class DatasetWrapper:
             buffer_size=tf.data.experimental.AUTOTUNE)
         # dataset = dataset.apply(
         #    tf.data.experimental.prefetch_to_device('/device:GPU:0'))
+        #print(f'got dataset')
 
         return dataset
 
     def map_load_image(self, image_path, tag_string):
         image_raw = tf.io.read_file(image_path)
         image = tf.io.decode_png(image_raw, channels=3)
-
+        #print(f'loading: {image_path}')
+        tf.print(image_path)
         if self.scale_range:
             pre_scale = self.scale_range[1]
         else:
