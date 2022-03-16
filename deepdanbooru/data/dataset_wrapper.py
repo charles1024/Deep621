@@ -43,7 +43,7 @@ class DatasetWrapper:
         image_raw = tf.io.read_file(image_path)
         image = tf.io.decode_png(image_raw, channels=3)
         #print(f'loading: {image_path}')
-        tf.print(image_path)
+        #tf.print(image_path)
         if self.scale_range:
             pre_scale = self.scale_range[1]
         else:
